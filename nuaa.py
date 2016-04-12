@@ -48,7 +48,6 @@ class NuaaSpider(Spider):
                 u = self.get_url_one_from_mongo()
                 if u:
                     self.queue.put(u)
-                    # self.log('add queue')
 
     def init(self):
         while True:
@@ -60,8 +59,8 @@ class NuaaSpider(Spider):
                 self.deal(url, html, text)
                 # search_add_count = search_add_count + 1
     def deal(self, url, html, text=''):
-        self.deal_url(url, html)  # 处理url
-        self.deal_text(url, html, text)  # 处理text
+        self.deal_url(url, html)
+        self.deal_text(url, html, text)
 
     def deal_url(self, url, html):
         """处理url

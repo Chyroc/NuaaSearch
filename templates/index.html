@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!-- saved from url=(0023)http://www.ciliyun.net/ -->
+<html lang="zh-CN">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="keywords" content="南航,搜索,南航搜索,南京航空航天大学">
+<meta name="description" content="南航搜索是一个检索南航校内信息的网站，信息来源于nuaa.edu.cn">
+<meta name="renderer" content="webkit">
+<title>南航搜索</title>
+<link href="./static/home.css" rel="Stylesheet">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<script type="text/javascript" src="./static/jquery.min.js"></script>
+<link type="text/css" rel="stylesheet" href="chrome-extension://ckphchjljlekndhjifdfpmmnlaijimcd/style.css"><style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style></head>
+<body onload="javascript:document.getElementById(&#39;keyword&#39;).focus();" screen_capture_injected="true" style="cursor: default;">
+    <div class="page">
+        <div class="header">
+            <div class="wp">
+                <a style="float: left; line-height: 36px;" href="#">首页</a>
+                <a style="float: left; line-height: 36px; padding-left: 20px;" href="#">关于</a> 
+                </div>
+        </div>
+        <div class="content">
+        <div class="wp">
+            <div>
+                <img src="./static/logo.jpg" >
+            </div>
+            <form action="./search" >
+                <div style="padding-top: 20px;">
+                    <input name="value" id="keyword" type="text" placeholder="搜索南航信息、通知...">
+                </div>
+                <div><input type="hidden" name="page" value="1"></div>
+                <div style="padding-top: 20px;">
+                    <input type="submit" value="搜索" id="search">
+                </div>
+                <div class="good">
+                    <div id="nums">
+                        <p>共索引 <span>{{urlcount}}</span> 个网页，它们来源于nuaa.edu.cn</p>
+                    </div>
+                    <p>
+                        <a href="">教务处</a> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="">纸飞机</a> &nbsp;&nbsp;&nbsp;&nbsp;
+                    </p>
+                </div>
+            </form>
+        </div>
+        </div>
+        <div class="footer">
+            <hr>
+            <p>Copyright © 南航搜索</p>
+        </div>
+
+
+
+<script type="text/javascript"> 
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l=document.getElementsByTagName("a"),t=document.createElement("textarea");for(i=0;l.length-i;i++){try{a=l[i].getAttribute("href");if(a&&"/cdn-cgi/l/email-protection"==a.substr(0 ,27)){s='';j=28;r=parseInt(a.substr(j,2),16);for(j+=2;a.length-j&&a.substr(j,1)!='X';j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}j+=1;s+=a.substr(j,a.length-j);t.innerHTML=s.replace(/</g,"&lt;").replace(/>/g,"&gt;");l[i].setAttribute("href","mailto:"+t.value);}}catch(e){}}}catch(e){}})();
+/* ]]> */
+</script>
+
+</div></body></html>
