@@ -21,35 +21,57 @@ class Spider(NuaaMongodb):
             return encoding[0]
         else:
             return requests.utils.get_encoding_from_headers(reponse.headers)
-
-    def do_url(self, domins, url):
+    def check_domin(self, domins, url):
+        for domin in domins:
+            if domin in url:
+                return True
+        return False
+    def check_not_allow_houzhui(self, not_allow_houzhui, url):
+        for al in not_allow_houzhui:
+            if '.' + al in url:
+                return False
+        return True
+    def check_notallow_host(self, notallow_host, url):
+        for al in notallow_host:
+            if al in url:
+                return False
+        return True
+    def do_url(self, domins, notallow_host, not_allow_houzhui, url):
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36',
         }
         timeout = 10
         try:
-            r = requests.get(url, headers=headers, timeout=timeout)
-            if r.status_code == requests.codes.ok:
-                self.save_nuaa_domin(domins, url)
-                r.encoding = self.get_encoding_from_reponse(r)
-                return r.text
+            if self.check_domin(domins, url):
+                if self.check_not_allow_houzhui(not_allow_houzhui, url):
+                    if self.check_notallow_host(notallow_host, url):
+                        r = requests.get(url, headers=headers, timeout=timeout)
+                        if r.status_code == requests.codes.ok:
+                            # self.save_nuaa_domin(domins, url)
+                            # self.save_nuaa_source(sources, url)
+                            r.encoding = self.get_encoding_from_reponse(r)
+                            return r.text
         except requests.exceptions.ConnectTimeout:
-            self.log('ConnectTimeout   ' + url + '=========================================================')
+            pass
+            #self.log('ConnectTimeout   ' + url + '=========================================================')
         except requests.exceptions.Timeout:
-            self.log('Timeout   ' + url + '=========================================================')
+            pass
+            #self.log('Timeout   ' + url + '=========================================================')
         except requests.exceptions.ConnectionError:
             self.log('ConnectionError   ' + url + '=========================================================')
+
         except requests.exceptions.RequestException as e:
             if 'javascript' in url:
-                self.log('javascript   ' + url + '=========================================================')
+                pass
+                #self.log('javascript   ' + url + '=========================================================')
             elif 'mailto:' in url:
-                self.log('mailto   ' + url + '=========================================================')
+                pass
+                #self.log('mailto   ' + url + '=========================================================')
             else:
                 print(e)
-                raise Exception('requests.exceptions.RequestException')
                 exit()
+                raise Exception('requests.exceptions.RequestException')
         return False
-
     def join_url_single(self, base, url):
         return urlparse.urljoin(base, url)
 
@@ -62,12 +84,12 @@ class Spider(NuaaMongodb):
     def add_url(self, urls):
         self.save_undo_url(urls)
 
-    def get_title_from_html(self, html):
+    def get_title_from_html(self, url, html):
         tit = html.xpath('//title/text()')
         if tit:
             return tit[0].strip()
         else:
-            return 'unknow title'
+            return url
 
     def get_body_from_html(self, text):
         # text = rehtml.strip_tags(text)

@@ -9,3 +9,5 @@ db = conn.nuaaspider
 db['nuaa_domin'].drop()
 db['undo_url'].drop()
 db['hash'].drop()
+db['to_whoosh'].drop()
+db['nuaa_souce'].drop()

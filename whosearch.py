@@ -62,10 +62,17 @@ class Whoosh:
             self.writer.commit()
         except:
             pass
-    def search(self, keyword, kind='content'):
+    def search(self, keyword, page, kind='content'):
         try:
             searcher = self.ix.searcher()
-            return searcher.find(kind, keyword)
+            from whoosh.qparser import QueryParser
+            qp = QueryParser(kind, schema=self.ix.schema)
+            q = qp.parse(keyword)
+            data = searcher.search_page(q, page)
+            return data
+            #pagecount = data.pagecount
+            #return {'pagecount':pagecount, 'data':data}
+            #return searcher.find(kind, keyword, limit=10)
         except:
             pass
     def close(self):
@@ -73,7 +80,16 @@ class Whoosh:
     def delete(self):
         import shutil
         shutil.rmtree("whoosh")
-
+    def searchq(self, word, key='content'):
+        try:
+            from whoosh.qparser import QueryParser
+            qp = QueryParser("content", schema=self.ix.schema)
+            q = qp.parse(u"南")
+            s = self.ix.searcher()
+            results = s.search(q, limit=20)
+            return results
+        except:
+            pass
 # from whoosh.qparser import QueryParser
 # with ix.searcher() as searcher:
 #     query = QueryParser("content", ix.schema).parse("学生")
